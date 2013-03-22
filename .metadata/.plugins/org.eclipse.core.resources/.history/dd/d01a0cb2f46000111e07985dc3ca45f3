@@ -1,0 +1,42 @@
+import java.util.List;
+import java.util.Map;
+
+
+public class Start {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		String strTrainingFiles = args[0];
+		String strTestFiles = args[1];
+				
+		FileManager fm = new FileManager();
+		Map<Integer,FilewithClassInfo> totFiles = fm.FetchData(strTrainingFiles);		
+		System.out.println("tot files :" +totFiles.size());
+		List<String> vocab = fm.getUniqueWords(); 
+		System.out.println("vocab - "+vocab.size());
+		
+		Model M = new Model();
+		double[] priors = M.getNBPriors(totFiles);
+		Map<Integer,Map<String,Double>> condProb = M.getConditionalProb(totFiles,vocab);
+		
+		
+		FileManager fm2 = new FileManager();
+		Map<Integer,FilewithClassInfo> filesToTest = fm2.FetchData(strTestFiles);
+		M.TestNBModel(filesToTest,priors,condProb);
+		
+		//Linear regression
+		Helper h = new Helper();
+		int[][] filetoWordcountMatrix = h.formMatrixfromdata(vocab,totFiles); 
+		//weightMatrix = M.LinerRegressionMCAP(file_count_matrix,classInfo,weightMatrix);
+		
+		//int[][] Matrix
+		
+		//System.out.println("vocab - "+vocab.size());
+
+	}
+
+}

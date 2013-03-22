@@ -1,0 +1,142 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Program3 {
+
+	/**
+	 * @param args
+	 */
+	
+ public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		String[][] tMatrix = {	{"x","A","B","x"},
+				{"x","x","C","D"},
+				{"x","C","x","E"},
+				{"x","x","x","x"}
+		};
+		
+		List<String> Edges = new ArrayList<String>();
+		
+		Edges.add("A");
+		Edges.add("B");
+		Edges.add("C");
+		Edges.add("D");
+		Edges.add("E");
+		
+		List<String> Vertices = new ArrayList<String>();
+		
+		Vertices.add("1");
+		Vertices.add("2");
+		Vertices.add("3");
+		Vertices.add("4");
+
+		int len =6;
+		int start =1;
+		List<String> Combinations = new ArrayList<String>();
+		Combinations = GeneNoRepeat("",len-1,start,0,Combinations,Edges);
+		
+		for (int i = 0; i < Combinations.size(); i++) {
+			
+			String pathsToRemove = Combinations.get(i) ;
+			
+			String[][] newMatrix = RemoveinTMatrix(Copy2dArray(tMatrix),pathsToRemove);
+			
+			boolean Exists = PathExists(newMatrix,"1","4","",Vertices,false);
+			if(Exists == false)
+				System.out.println(pathsToRemove);
+			
+		}
+		
+		//System.out.println(PathExists(tMatrix,"1","4","",Vertices,false));
+	}
+	
+	private static String[][] Copy2dArray(String[][] tMatrix) {
+		// TODO Auto-generated method stub
+		String[][] newArray = new String[tMatrix.length][tMatrix.length];
+		for (int i = 0; i < newArray.length; i++) {
+			for (int j = 0; j < newArray.length; j++) {
+				newArray[i][j]= tMatrix[i][j];
+			}
+		}
+		return newArray;
+	}
+
+	private static String[][] RemoveinTMatrix(String[][] clone,
+			String pathsToRemove) {
+		String[] edges = pathsToRemove.split(":");
+		
+		for (int i = 0; i < clone.length; i++) {
+			for (int j = 0; j < clone.length; j++) {
+				for (int j2 = 0; j2 < edges.length; j2++) {
+					if(clone[i][j].equals(edges[j2]))
+						clone[i][j]="x";
+				}
+			}
+		}
+		return clone;
+	}
+
+	private static List<String> GeneNoRepeat(String s, int len, int start, int lvl, List<String> combinations,List<String> vals) {
+		System.out.println(s);
+		combinations.add(s);
+		
+		for (int i = 0; i < vals.size(); i++) {
+			
+			if(s.contains(vals.get(i)))
+				continue;
+			
+			String temp = String.format("%s", s);
+			temp = temp+ ":" +vals.get(i);
+				
+			if(len>=start)
+			{
+				combinations = GeneNoRepeat(temp, len, start+1,lvl+1,combinations,vals);
+			}
+			
+			if(lvl==0)
+			{
+				//System.out.println("remove ->"+vals.remove(0));
+				//i--;
+				//len--;
+			}
+				
+		}
+		
+		return combinations;
+	}
+	
+	private static boolean PathExists(String[][] tMatrix, String start,
+			String Dest, String path, List<String> vertices,boolean returnVal) {
+		
+		int Pos = vertices.indexOf(start);
+		
+		if(start.equals(Dest))
+		{
+			System.out.println(path);
+			return true;
+		}
+		
+		for (int i = 0; i < tMatrix.length; i++) {
+			if(!tMatrix[Pos][i].equals("x"))
+			{
+				//If the current element is already present then it forms a loop!
+				if(path.contains(tMatrix[Pos][i]))
+				{
+					//System.out.println("break on "+tMatrix[Pos][i]);
+					continue;
+				}
+				
+				start = vertices.get(i);
+				returnVal = PathExists(tMatrix,start,Dest,path+tMatrix[Pos][i],vertices,returnVal);
+				
+			}
+		}
+		
+		return returnVal;
+	}
+
+	
+
+}

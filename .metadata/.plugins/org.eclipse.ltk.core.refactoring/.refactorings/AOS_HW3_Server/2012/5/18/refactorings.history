@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;MasterListener.java&apos; to &apos;AOS_HW3_Client/src/(default package)&apos;&#x0A;- Original project: &apos;AOS_HW3_Server&apos;&#x0A;- Destination element: &apos;AOS_HW3_Client/src/(default package)&apos;&#x0A;- Original element: &apos;MasterListener.java&apos;" description="Copy compilation unit" destination="=AOS_HW3_Client/src&lt;" element1="/src&lt;{MasterListener.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1336253062004" units="1" version="1.0"/>
+</session>

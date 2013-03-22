@@ -1,0 +1,15 @@
+import java.net.Socket;
+
+public class StartServer {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		new ServerSocket(10000);
+
+	}
+
+}

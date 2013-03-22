@@ -1,0 +1,89 @@
+package sample;
+
+//import java.io.BufferedReader;
+import java.io.IOException;
+//import java.io.InputStreamReader;
+//import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class Server {
+	private ConcurrentHashMap<Integer, Integer> myMap;
+	private Map<Integer, Integer> accountPortMap;
+	private Map<String, Integer> serverPortMap;
+	private clientThread t[];
+
+	private String serverName;
+	private static int port;
+
+	public Server(String serverName) {
+		super();
+		this.serverName = serverName;
+		myMap = new ConcurrentHashMap<Integer, Integer>();
+		accountPortMap = new HashMap<Integer, Integer>();
+		serverPortMap = new HashMap<String, Integer>();
+		t = new clientThread[10];
+	}
+
+	public ConcurrentHashMap<Integer, Integer> getMyMap() {
+		return myMap;
+	}
+
+	public static void main(String[] args) throws IOException {
+
+		String serverName = args[0];
+		String fileName = "config.txt";
+		Server myServer = new Server(serverName);
+
+		ArrayList<MyServer> serverList = ParseFiles
+				.parseFileForClient(fileName);
+		for (Iterator iterator = serverList.iterator(); iterator.hasNext();) {
+			MyServer myServer2 = (MyServer) iterator.next();
+
+			myServer.serverPortMap.put(myServer2.getServerName(),
+					myServer2.getPortNumber());
+
+		}
+		// parse file passing the filename to the parseFiles
+		ArrayList<Account> acc = ParseFiles.parseFileForServer(fileName);
+		for (Iterator iterator = acc.iterator(); iterator.hasNext();) {
+			Account account = (Account) iterator.next();
+			myServer.myMap.put(account.getAccntno(), account.getBalance());
+
+		}
+		
+		myServer.accountPortMap = ParseFiles.sendMyMap();
+
+		ServerSocket echoServer = null;
+		Socket clientSocket = null;
+		// start the server socket and accept connection
+		try {
+			// according to servername find port
+			 port = myServer.serverPortMap.get(serverName);
+			// bind to port and listen
+			echoServer = new ServerSocket(myServer.port);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		// in the connection
+		while(true) {
+		try {
+			clientSocket = echoServer.accept();
+			for(int i = 0; i <= 9; i++) {
+				if(myServer.t[i] == null) {
+					
+					(myServer.t[i] = new clientThread(clientSocket,myServer.t, port)).start();
+					break;
+				}
+				}
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		}
+	}
+}

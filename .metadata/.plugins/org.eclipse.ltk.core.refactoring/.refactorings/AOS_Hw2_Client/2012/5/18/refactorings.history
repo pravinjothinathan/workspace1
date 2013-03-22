@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 5 elements to &apos;AOS_HW3_Client/src&apos;&#x0A;- Original project: &apos;AOS_Hw2_Client&apos;&#x0A;- Destination element: &apos;AOS_HW3_Client/src&apos;&#x0A;- Original elements:&#x0A;     InputParameters.java&#x0A;     Info.java&#x0A;     Client.java&#x0A;     Server.java&#x0A;     Message.java" description="Copy compilation units" destination="=AOS_HW3_Client/src" element1="/src&lt;{InputParameters.java" element2="/src&lt;{Info.java" element3="/src&lt;{Client.java" element4="/src&lt;{Server.java" element5="/src&lt;{Message.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1336193258713" units="5" version="1.0"/>
+</session>

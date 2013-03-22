@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+     <extension 
+     	point="org.eclipse.ui.editors">
+      <editor
+            class="cbg.editor.ColoringEditor"
+            contributorClass="cbg.editor.ColoringEditorContribution"
+            default="true"
+            extensions="4gl,ada,adb,ads,as,asa,asm,asp,asx,awk,bas,bat,bbj,bib,bsh,c,cbl,cc,cfm,changes,classpath,cls,cmd,cpp,c++,cs,csh,css,csv,cxx,C,dbm,diff,dpk,dpr,dsl,dtd,e,el,eps,f,H,h,hh,hpp,h++,hxx,hs,htm,html,i,i3,icc,idl,imp,in,inc,ini,java,jhtml,jmk,jou,js,json,jsf,jsp,jspf,lisp,lsp,ltx,m,m3,m4,mak,makefile,mch,mf,mips,ml,nrx,orx,p,pas,patch,php,php3,php4,php5,phtml,pl,pls,pm,pom,pov,povray,prg,pro,project,properties,props,ps,py,pyw,r,rb,rbw,ref,reg,rex,rvw,S,s,scm,sgm,sgml,sh,shtm,shtml,sml,sources,spec,sqc,sql,sqr,st,sty,tcl,tex,texi,tsh,txt,v,vbs,ver,vh,vhd, vhdl,vm,w,xhtml,xml,xom,xsl,xul"
+            id="cbg.editor.ColoringEditor"
+            name="Coloring Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="Coloring Editor"
+            class="cbg.editor.prefs.ColoringPreferencePage"
+            id="cbg.editor.prefs.ColoringPreferencePage">
+      </page>
+      <page
+            name="Colors"
+            category="cbg.editor.prefs.ColoringPreferencePage"
+            class="cbg.editor.prefs.ColorsPreferencePage"
+            id="cbg.editor.prefs.ColorsPreferencePage">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="cbg.editor.prefs.PreferenceInitializer"/>
+   </extension>
+
+</plugin>

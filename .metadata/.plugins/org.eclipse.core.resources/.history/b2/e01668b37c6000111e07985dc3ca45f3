@@ -1,0 +1,95 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+
+public class FileHandler {
+	
+	//List<String> UniqueWords;
+	//Map<Integer,List<String>> UniqueWordsinFilesMap;
+	
+	public FileHandler()
+	{
+		//UniqueWords = new ArrayList<String>();
+		//UniqueWordsinFilesMap = new HashMap<Integer, List<String>>();
+	}
+	
+	public Map<String,Integer> FetchData(String FileName,int fileno)
+	{
+		Map<String,Integer> WordMap = new HashMap<String,Integer>();		
+		String temp ="";//= new StringBuilder();
+		
+		
+		 try 
+		 {
+			BufferedReader input =  new BufferedReader(new FileReader(FileName));
+			
+			String line = null; 
+	        
+	        while (( line = input.readLine()) != null)
+	        {
+	        
+	        	temp = temp + " "+ line;
+	        }
+	        
+	        input.close();
+		 } 
+		 catch (Exception e) 
+		 {
+			e.printStackTrace();
+		 }
+		 
+		 StringTokenizer st = new StringTokenizer(temp.toString());
+		 
+		 List<String> uniqueWordsinFile = new ArrayList<String>(); 
+		 
+		for(int i=0;i<st.countTokens();i++)
+		{
+			String s = st.nextToken();
+			
+			/*if(!UniqueWords.contains(s))
+			{
+				//System.out.println(s);
+				UniqueWords.add(s);
+			}
+			
+			if(!uniqueWordsinFile.contains(s))
+			{
+				uniqueWordsinFile.add(s);
+			}*/
+			
+			if(WordMap.containsKey(s))
+			{
+				int n = WordMap.get(s) +1;
+				WordMap.remove(s);
+				WordMap.put(s, n);
+			}
+			else
+			{
+				WordMap.put(s, 1);
+			}
+			
+			//System.out.println(s);
+			
+		}
+		
+		UniqueWordsinFilesMap.put(fileno, uniqueWordsinFile);
+		
+		return WordMap;
+	}
+	
+	public List<String> getUniqueWords()
+	{
+		return UniqueWords;
+	}
+	
+	public Map<Integer, List<String>> getFilewiseUniqueWords()
+	{
+		return UniqueWordsinFilesMap;
+	}
+
+}

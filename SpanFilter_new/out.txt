@@ -1,0 +1,12 @@
+@relation name
+@attribute '0' real
+@attribute '1' real
+@attribute '2' real
+@attribute '3' real
+@attribute '4' real
+@attribute 'class' {ham,spam}
+@data
+1,1,1,2,2,ham
+1,0,0,0,0,ham
+1,1,1,2,2,spam
+1,0,0,0,1,spam

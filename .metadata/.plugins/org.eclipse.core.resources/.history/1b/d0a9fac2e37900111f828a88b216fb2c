@@ -1,0 +1,71 @@
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.util.List;
+
+
+public class Server extends Thread
+{
+	//this is not object oriented have to revisit this approach
+	List<Server> Servers;//current Server object
+	List<Client> Clients;
+	boolean mainServer;
+	DataInputStream disDatain;//other server objects
+	PrintStream psDataout;//other server objects
+	public Server(Socket tempsock)
+	{
+		//creation for other server objects
+		try {
+			disDatain = new DataInputStream(tempsock.getInputStream());
+			psDataout = new PrintStream(tempsock.getOutputStream());
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error creatio of Streams in Existing Server connections!!");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public Server(List<Server> lstServers, List<Client> lstClients) {
+		//Server Creation for the current Server
+		mainServer = true;
+		Servers = lstServers;
+		Clients = lstClients;
+		// TODO Auto-generated constructor stub
+	}
+
+	public void run()
+	{
+		if(mainServer==true)
+		{
+			MainServerOperations(Servers,Clients);
+		}
+		else
+		{
+			OtherServerOperations();
+		}
+	}
+
+	private void OtherServerOperations() {
+		// TODO Auto-generated method stub
+		while(true)
+		{
+			
+		}
+	}
+
+	private void MainServerOperations(List<Server> servers2, List<Client> clients2) {
+		// TODO Auto-generated method stub
+		while(true)
+		{
+			for (Client client : clients2) {
+				Message msg = client.ReadStream();
+				if(msg!=null)
+				{
+					System.out.println("op - "+msg.Operation+"fle - "+msg.file);
+				}
+			}
+		}
+	}
+}

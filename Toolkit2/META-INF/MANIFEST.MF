@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Toolkit2
+Bundle-SymbolicName: Toolkit2
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Export-Package: cbg.editor,
+ cbg.editor.jedit,
+ cbg.editor.prefs,
+ cbg.editor.rules
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

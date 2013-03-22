@@ -1,0 +1,41 @@
+package sample;
+
+import java.util.List;
+
+public class MyServer {
+	
+	private String serverName;
+	//private Info ServInfo;
+	private int portNumber;
+	private List<String> accountList;
+	
+
+	public MyServer(String serverName,int portNumber,List<String> accountList) {
+		// TODO Auto-generated constructor stub
+		this.serverName = serverName;
+		this.portNumber = portNumber;
+		this.accountList = accountList;
+		
+	}
+	
+	public List<String> getAccountList() {
+		return accountList;
+	}
+	public void setAccountList(List<String> accountList) {
+		this.accountList = accountList;
+	}
+	public String getServerName() {
+		return serverName;
+	}
+	public void setServerName(String serverName) {
+		this.serverName = serverName;
+	}
+	public int getPortNumber() {
+		return portNumber;
+	}
+	public void setPortNumber(int portNumber) {
+		this.portNumber = portNumber;
+	}
+	
+
+}

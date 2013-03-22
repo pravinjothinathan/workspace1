@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Program2_1 {
+
+	/**
+	 * @param args
+	 */
+public static void main(String[] args) {
+		
+		String[][] tMatrix = {	{"x","A","B","x"},
+								{"x","x","C","D"},
+								{"x","C","x","E"},
+								{"x","x","x","x"}
+						};
+		
+		List<String> Vertices = new ArrayList<String>();
+		
+		Vertices.add("1");
+		Vertices.add("2");
+		Vertices.add("3");
+		Vertices.add("4");
+		
+		String path ="";
+		List<String> Paths = new ArrayList<String>();
+		Paths = TracePath(tMatrix,"1","4","",Vertices,Paths);
+
+	}
+
+	
+
+	private static List<String> TracePath(String[][] tMatrix, String start,
+			String Dest, String path, List<String> vertices,List<String> Paths) {
+		
+		int Pos = vertices.indexOf(start);
+				
+		if(start.equals(Dest))
+		{
+			System.out.println(path);
+		}
+		
+		for (int i = 0; i < tMatrix.length; i++) {
+			if(!tMatrix[Pos][i].equals("x"))
+			{
+				//If the current element is already present then it forms a loop!
+				if(path.contains(tMatrix[Pos][i]))
+				{
+					//System.out.println("break on "+tMatrix[Pos][i]);
+					continue;
+				}
+				
+				start = vertices.get(i);
+				TracePath(tMatrix,start,Dest,path+tMatrix[Pos][i],vertices);
+				
+			}
+		}
+	}
+}

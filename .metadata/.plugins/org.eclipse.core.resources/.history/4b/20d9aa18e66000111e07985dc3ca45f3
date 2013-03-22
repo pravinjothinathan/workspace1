@@ -1,0 +1,116 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+
+public class FileHandler {
+	static int countertot=0;
+	List<String> UniqueWords;
+	//Map<Integer,List<String>> UniqueWordsinFilesMap;
+	
+	public FileHandler()
+	{
+		UniqueWords = new ArrayList<String>();
+		//UniqueWordsinFilesMap = new HashMap<Integer, List<String>>();
+	}
+	
+	public Map<String,Integer> FetchData(String FileName,int fileno)
+	{
+		Map<String,Integer> WordMap = new HashMap<String,Integer>();		
+		String temp ="";//= new StringBuilder();
+		
+		
+		 try 
+		 {
+			BufferedReader input =  new BufferedReader(new FileReader(FileName));
+			
+			String line = null; 
+	        
+	        while (( line = input.readLine()) != null)
+	        {
+	        
+	        	temp = temp + " "+ line;
+	        }
+	        
+	        input.close();
+		 } 
+		 catch (Exception e) 
+		 {
+			e.printStackTrace();
+		 }
+		 
+		 for (String token : temp.split(" ")) {
+			//if(token.length()<3)
+				//continue;
+			
+			 if(!UniqueWords.contains(token))
+			 {
+				 UniqueWords.add(token);
+			}
+			 
+			if(WordMap.containsKey(token))
+			{
+				int n = WordMap.get(token)+1;
+				WordMap.remove(token);
+				WordMap.put(token, n);
+			}
+			else
+			{
+				WordMap.put(token, 1);
+			}
+		}
+		 
+		 /*
+		 StringTokenizer st = new StringTokenizer(temp);
+		 
+		 
+		 
+		 //List<String> uniqueWordsinFile = new ArrayList<String>(); 
+		 
+		for(int i=0;i<st.countTokens();i++)
+		{
+			countertot++;
+			String s = st.nextToken();
+			
+			if(!UniqueWords.contains(s))
+			{
+				//System.out.println(s);
+				UniqueWords.add(s);
+			}
+			
+			
+			if(WordMap.containsKey(s))
+			{
+				int n = WordMap.get(s) +1;
+				WordMap.remove(s);
+				WordMap.put(s, n);
+			}
+			else
+			{
+				WordMap.put(s, 1);
+			}
+			
+			//System.out.println(s);
+			
+		}
+		*/
+		//UniqueWordsinFilesMap.put(fileno, uniqueWordsinFile);
+		
+		return WordMap;
+	}
+	
+	/*public List<String> getUniqueWords()
+	{
+		return UniqueWords;
+	}
+	
+	public Map<Integer, List<String>> getFilewiseUniqueWords()
+	{
+		return UniqueWordsinFilesMap;
+	}*/
+
+}

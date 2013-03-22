@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Program1 {
+
+	/**
+	 * @param args
+	 */
+	
+	static int level;
+	public static void main(String[] args) {
+		List<String> input= new ArrayList<String>();
+		input.clear();
+		input.add("a");
+		input.add("b");
+		input.add("c");
+		input.add("d");
+		input.add("e");
+		List<Double> prob= new ArrayList<Double>();
+		prob.clear();
+		prob.add(0.5);
+		prob.add(0.5);
+		prob.add(0.5);
+		prob.add(0.5);
+		prob.add(0.5);
+		NewCombi(input,prob,"",1.0);
+	}
+	
+	private static void NewCombi(List<String> input,List<Double> prob, String stackTrace, double reliability)
+	{
+	
+		if(input.size()==0){
+			//checkpath();
+			System.out.println(stackTrace +"=>"+reliability);
+			return;
+		}
+		 
+		String leftString = input.remove(0);
+		String rightString = "-" + leftString;
+		
+		double leftProb = prob.remove(0);
+		double rightProb = 1 - leftProb ;
+		
+		
+		//Left Tree
+		NewCombi(input, prob, stackTrace + ":" + leftString, reliability * leftProb );
+		
+		//right Tree
+		NewCombi(input, prob, stackTrace + ":" + rightString, reliability * rightProb );
+		
+		input.add(0, leftString);
+		prob.add(0,leftProb);
+		
+	}
+	
+}
